@@ -1,33 +1,62 @@
+
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { db } from "./data/db";
 import './App.css'
+import ListTaks from './assets/components/ListTaks'
+import ModalTasks from './assets/components/ModalTasks'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState(db)
+
+  const tareasAlmacenadas = JSON.parse(localStorage.getItem("datos"));
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="container p-5">
+        <div className="card">
+          <h5 className="card-header">
+            <nav className="navbar bg-body-tertiary">
+              <div className="container-fluid">
+                <a className="navbar-brand">Tareas</a>
+                <form className="d-flex" role="search">
+                  <input className="form-control float-end" type="search" placeholder="Buscar Tarea" aria-label="Search" />
+                </form>
+              </div>
+            </nav></h5>
+          <div className="card-body">
+            <button type="button" className="btn btn-primary " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              Nueva Tarea
+            </button>
+            <ModalTasks task='' />
+            <div className="row">
+              <div className="col-md-12">
+                <table className="table p-3">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Tarea</th>
+                      <th scope="col">Descripcion</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Accion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tasks.map((task) => {
+                      return (
+                        <ListTaks
+                          key={task.id}
+                          task={task}
+                          editarTarea={2}
+                        />
+                      )
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
