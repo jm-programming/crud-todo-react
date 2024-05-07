@@ -1,32 +1,15 @@
 
+import Swal from "sweetalert2";
 
-function Taks(data) {
-  const inputTarea = document.getElementById("input-tarea");
-  const inputDescripcion = document.getElementById("input-descripcion");
-  //let totalTask = tareasAlmacenadas?.length;
-  const guardarTarea = () => {
-    if (!validarCamposVacios()) {
-      //if (inputIndex.value == "null") {
-      let count = 0;
+function Taks(props) {
 
-      //totalTask > 0 ? (count = tareasAlmacenadas.length) : 0;
-      totalTask <= 0 ? totalTask = 0 : totalTask;
-      console.log('total de tareas ' + totalTask);
-      count = tareasAlmacenadas.length;
-      tareasAlmacenadas.push({
-        id: totalTask++,
-        nombre: inputTarea.value,
-        descripcion: inputDescripcion.value,
-        fecha: obtenerFecha(),
-      });
+  console.log(props);
 
-      localStorage.setItem("datos", JSON.stringify(tareasAlmacenadas)); // guarda los datos al localStorage
-      // success();
-      // leerDatos();
-      // limpiarCajas();
-      //  }
-    }
-  };
+  const {setNombre, setDescripcion, count, nombre, descripcion } = props
+
+  let inputTarea = document.getElementById("input_tarea");
+  let inputDescripcion = document.getElementById("input_descripcion");
+
   const obtenerFecha = () => {
     const date = new Date();
     return date.toDateString();
@@ -43,37 +26,110 @@ function Taks(data) {
     }
   };
 
+  //let totalTask = tareasAlmacenadas?.length;
+  const guardarTarea = () => {
+    if (!validarCamposVacios()) {
+    //if (inputIndex.value == "null") {
+
+    //totalTask > 0 ? (count = tareasAlmacenadas.length) : 0;
+    // totalTask <= 0 ? totalTask = 0 : totalTask;
+    // console.log('total de tareas ' + totalTask);
+    // count = tareasAlmacenadas.length;
+    // tareasAlmacenadas.push({
+    //   id: 0,
+    //   nombre: inputTarea.value,
+    //   descripcion: inputDescripcion.value,
+    //   fecha: obtenerFecha(),
+    // });
+
+    // localStorage.setItem("datos", JSON.stringify(tareasAlmacenadas)); // guarda los datos al localStorage
+    // success();
+    // leerDatos();
+    // limpiarCajas();
+    //  }
+    }
+
+   // console.log(taks);
+
+    console.log(inputTarea.value);
+    console.log(inputDescripcion.value);
+  };
 
   return (
     <>
-      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="staticBackdropLabel">Nueva Tarea</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h5 className="modal-title" id="staticBackdropLabel">
+                Nueva Tarea
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <div className="modal-body">
               <form>
                 <div className="mb-3">
-                  <label htmlFor="input-tarea" className="col-form-label">Tarea:</label>
-                  <input type="text" className="form-control" id="input-tarea" />
+                  <label htmlFor="input_tarea" className="col-form-label">
+                    Tarea:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="input_tarea"
+                    placeholder="Aqui"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}                    
+                    
+                  />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="input-descripcion" className="col-form-label">Descripcion:</label>
-                  <textarea className="form-control" id="input-descripcion"></textarea>
+                  <label htmlFor="input_descripcion" className="col-form-label">
+                    Descripcion:
+                  </label>
+                  <textarea
+                    className="form-control"
+                    id="input_descripcion"
+                    placeholder="aqui"
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                  ></textarea>
                 </div>
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" className="btn btn-primary" onClick={() => guardarTarea()}>Guardar</button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => guardarTarea()}
+              >
+                Guardar
+              </button>
             </div>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Taks
+export default Taks;
